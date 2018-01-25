@@ -2,17 +2,17 @@
 
 import React from 'react'
 
-const UserInfo = () => (
+const UserInfo = ({ userinfo }) => (
   <div className='user-info'>
     <img src='https://avatars2.githubusercontent.com/u/7242605?v=4' />
     <h1 className='username'>
-      <a href='https://github.com/luancurti'>Luan Curti</a>
+      <a href={`https://github.com/${userinfo.username}`}>{userinfo.username}</a>
     </h1>
 
     <ul className='repos-info'>
-      <li>Repositórios: 14</li>
-      <li>Seguidores: 20</li>
-      <li>Seguindo: 20</li>
+      <li>Repositórios: {userinfo.repos}</li>
+      <li>Seguidores: {userinfo.followers}</li>
+      <li>Seguindo: {userinfo.following}</li>
     </ul>
   </div>
 )
