@@ -4,9 +4,9 @@ import React from 'react'
 
 const UserInfo = ({ userinfo }) => (
   <div className='user-info'>
-    <img src='https://avatars2.githubusercontent.com/u/7242605?v=4' />
+    <img src={userinfo.photo} />
     <h1 className='username'>
-      <a href={`https://github.com/${userinfo.username}`}>{userinfo.username}</a>
+      <a href={`https://github.com/${userinfo.login}`}>{userinfo.username}</a>
     </h1>
 
     <ul className='repos-info'>

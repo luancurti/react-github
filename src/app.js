@@ -8,12 +8,7 @@ class App extends Component {
   constructor () {
     super()
     this.state = {
-      userinfo: {
-        username: 'Luan Curti',
-        repos: 25,
-        followers: 10,
-        following: 9
-      },
+      userinfo: {},
       repos: [{
         name: 'Repo',
         link: '#'
@@ -25,12 +20,36 @@ class App extends Component {
     }
   }
 
+  search ($event) {
+    const value = $event.target.value
+    const keyCode = $event.which || $event.keyCode
+    const ENTER = 13
+
+    if (keyCode === ENTER) {
+      fetch(`https://api.github.com/users/${value}`)
+        .then(res => res.json())
+        .then(res => {
+          this.setState({
+            userinfo: {
+              username: res.name,
+              photo: res.avatar_url,
+              login: res.login,
+              repos: res.public_repos,
+              followers: res.followers,
+              following: res.following
+            }
+          })
+        })
+    }
+  }
+
   render () {
     return (
       <AppContent
         userinfo={this.state.userinfo}
         repos={this.state.repos}
         starred={this.state.starred}
+        handleSearch={$event => this.search($event)}
       />
     )
   }
