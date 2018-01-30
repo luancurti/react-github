@@ -3,19 +3,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Actions = ({ login }) => (
+const Actions = ({ getRepos, getStarred }) => (
   <div className='actions'>
-    <a href={`https://github.com/${login}?tab=repositories`}>
-      Ver repositórios
-    </a>
-    <a href={`https://github.com/${login}?tab=stars`}>
-      Ver favoritos
-    </a>
+    <button onClick={getRepos}>Ver repositórios</button>
+    <button onClick={getStarred}>Ver favoritos</button>
   </div>
 )
 
 Actions.propTypes = {
-  login: PropTypes.string.isRequired
+  getRepos: PropTypes.func.isRequired,
+  getStarred: PropTypes.func.isRequired
 }
 
 export default Actions

@@ -8,15 +8,9 @@ class App extends Component {
   constructor () {
     super()
     this.state = {
-      userinfo: {},
-      repos: [{
-        name: 'Repo',
-        link: '#'
-      }],
-      starred: [{
-        name: 'Repo',
-        link: '#'
-      }]
+      userinfo: null,
+      repos: [],
+      starred: []
     }
   }
 
@@ -43,6 +37,18 @@ class App extends Component {
     }
   }
 
+  getRepositories () {
+    fetch(`https://api.github.com/users/${this.state.userinfo.login}/repos`)
+      .then(res => res.json())
+      .then(res => this.setState({ repos: res }))
+  }
+
+  getStarred () {
+    fetch(`https://api.github.com/users/${this.state.userinfo.login}/starred`)
+      .then(res => res.json())
+      .then(res => this.setState({ starred: res }))
+  }
+
   render () {
     return (
       <AppContent
@@ -50,6 +56,8 @@ class App extends Component {
         repos={this.state.repos}
         starred={this.state.starred}
         handleSearch={$event => this.search($event)}
+        getRepos={() => this.getRepositories()}
+        getStarred={() => this.getStarred()}
       />
     )
   }
