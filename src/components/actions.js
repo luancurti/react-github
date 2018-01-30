@@ -1,12 +1,21 @@
 'use strict'
 
 import React from 'react'
+import PropTypes from 'prop-types'
 
-const Actions = () => (
+const Actions = ({ login }) => (
   <div className='actions'>
-    <button>Ver repositórios</button>
-    <button>Ver favoritos</button>
+    <a href={`https://github.com/${login}?tab=repositories`}>
+      Ver repositórios
+    </a>
+    <a href={`https://github.com/${login}?tab=stars`}>
+      Ver favoritos
+    </a>
   </div>
 )
+
+Actions.propTypes = {
+  login: PropTypes.string.isRequired
+}
 
 export default Actions
