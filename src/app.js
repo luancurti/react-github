@@ -38,7 +38,9 @@ class App extends Component {
   }
 
   getRepos (type) {
-    fetch(`https://api.github.com/users/${this.state.userinfo.login}/${type}`)
+    const { login } = this.state.userinfo
+
+    fetch(`https://api.github.com/users/${login}/${type}`)
       .then(res => res.json())
       .then(res => {
         this.setState({
