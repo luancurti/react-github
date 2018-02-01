@@ -37,16 +37,17 @@ class App extends Component {
     }
   }
 
-  getRepositories () {
-    fetch(`https://api.github.com/users/${this.state.userinfo.login}/repos`)
+  getRepos (type) {
+    fetch(`https://api.github.com/users/${this.state.userinfo.login}/${type}`)
       .then(res => res.json())
-      .then(res => this.setState({ repos: res }))
-  }
-
-  getStarred () {
-    fetch(`https://api.github.com/users/${this.state.userinfo.login}/starred`)
-      .then(res => res.json())
-      .then(res => this.setState({ starred: res }))
+      .then(res => {
+        this.setState({
+          [type]: res.map(repo => ({
+            name: repo.name,
+            link: repo.html_url
+          }))
+        })
+      })
   }
 
   render () {
@@ -56,8 +57,8 @@ class App extends Component {
         repos={this.state.repos}
         starred={this.state.starred}
         handleSearch={$event => this.search($event)}
-        getRepos={() => this.getRepositories()}
-        getStarred={() => this.getStarred()}
+        getRepos={() => this.getRepos('repos')}
+        getStarred={() => this.getRepos('starred')}
       />
     )
   }
