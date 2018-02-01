@@ -14,13 +14,19 @@ class App extends Component {
     }
   }
 
+  getGitHubApiUrl (username, type) {
+    const internalUser = username ? `/${username}` : ''
+    const internalType = type ? `/${type}` : ''
+    return `https://api.github.com/users${internalUser}${internalType}`
+  }
+
   search ($event) {
     const value = $event.target.value
     const keyCode = $event.which || $event.keyCode
     const ENTER = 13
 
     if (keyCode === ENTER) {
-      fetch(`https://api.github.com/users/${value}`)
+      fetch(this.getGitHubApiUrl(value))
         .then(res => res.json())
         .then(res => {
           this.setState({
@@ -42,7 +48,7 @@ class App extends Component {
   getRepos (type) {
     const { login } = this.state.userinfo
 
-    fetch(`https://api.github.com/users/${login}/${type}`)
+    fetch(this.getGitHubApiUrl(login, type))
       .then(res => res.json())
       .then(res => {
         this.setState({
