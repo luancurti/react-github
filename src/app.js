@@ -24,11 +24,14 @@ class App extends Component {
     const value = $event.target.value
     const keyCode = $event.which || $event.keyCode
     const ENTER = 13
+    const target = $event.target
 
     if (keyCode === ENTER) {
+      target.disabled = true
       fetch(this.getGitHubApiUrl(value))
         .then(res => res.json())
         .then(res => {
+          target.disabled = false
           this.setState({
             userinfo: {
               username: res.name,
