@@ -10,7 +10,8 @@ class App extends Component {
     this.state = {
       userinfo: null,
       repos: [],
-      starred: []
+      starred: [],
+      isFetching: false
     }
   }
 
@@ -24,14 +25,13 @@ class App extends Component {
     const value = $event.target.value
     const keyCode = $event.which || $event.keyCode
     const ENTER = 13
-    const target = $event.target
 
     if (keyCode === ENTER) {
-      target.disabled = true
+      this.setState({ isFetching: true })
+
       fetch(this.getGitHubApiUrl(value))
         .then(res => res.json())
         .then(res => {
-          target.disabled = false
           this.setState({
             userinfo: {
               username: res.name,
@@ -45,6 +45,7 @@ class App extends Component {
             starred: []
           })
         })
+        .then(() => this.setState({ isFetching: false }))
     }
   }
 
@@ -69,6 +70,7 @@ class App extends Component {
         userinfo={this.state.userinfo}
         repos={this.state.repos}
         starred={this.state.starred}
+        isFetching={this.state.isFetching}
         handleSearch={$event => this.search($event)}
         getRepos={() => this.getRepos('repos')}
         getStarred={() => this.getRepos('starred')}
