@@ -1,6 +1,7 @@
 'use strict'
 
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const UserInfo = ({ userinfo }) => (
   <div className='user-info'>
@@ -16,5 +17,9 @@ const UserInfo = ({ userinfo }) => (
     </ul>
   </div>
 )
+
+UserInfo.propTypes = {
+  userinfo: PropTypes.object.isRequired
+}
 
 export default UserInfo
