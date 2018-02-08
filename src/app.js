@@ -13,6 +13,10 @@ class App extends Component {
       starred: [],
       isFetching: false
     }
+
+    this.search = this.search.bind(this)
+    this.getRepositories = this.getRepos.bind(this, 'repos')
+    this.getStarred = this.getRepos.bind(this, 'starred')
   }
 
   getGitHubApiUrl (username, type) {
@@ -71,9 +75,9 @@ class App extends Component {
         repos={this.state.repos}
         starred={this.state.starred}
         isFetching={this.state.isFetching}
-        handleSearch={$event => this.search($event)}
-        getRepos={() => this.getRepos('repos')}
-        getStarred={() => this.getRepos('starred')}
+        handleSearch={this.search}
+        getRepos={this.getRepositories}
+        getStarred={this.getStarred}
       />
     )
   }
