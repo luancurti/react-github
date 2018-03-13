@@ -14,9 +14,8 @@ class App extends Component {
       isFetching: false
     }
 
-    this.search = this.search.bind(this)
-    this.getRepositories = this.getRepos.bind(this, 'repos')
-    this.getStarred = this.getRepos.bind(this, 'starred')
+    this.getRepositories = () => this.getRepos('repos')
+    this.getStarred = () => this.getRepos('starred')
   }
 
   getGitHubApiUrl (username, type) {
@@ -72,7 +71,7 @@ class App extends Component {
     return (
       <AppContent
         {...this.state}
-        handleSearch={this.search}
+        handleSearch={$event => this.search($event)}
         getRepos={this.getRepositories}
         getStarred={this.getStarred}
       />
